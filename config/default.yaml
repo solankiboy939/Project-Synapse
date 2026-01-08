@@ -1,0 +1,60 @@
+synapse:
+  privacy:
+    global_budget: 10.0
+    default_query_budget: 0.1
+    
+  indexing:
+    embedding_model: "all-MiniLM-L6-v2"
+    batch_size: 100
+    update_interval: 3600  # seconds
+    
+  security:
+    encryption_enabled: true
+    key_rotation_interval: 86400  # seconds (24 hours)
+    
+  api:
+    host: "0.0.0.0"
+    port: 8080
+    cors_origins: ["*"]
+
+# Example silo configurations
+silos:
+  engineering_docs:
+    name: "Engineering Documentation"
+    type: "documentation"
+    organization_id: "acme_corp"
+    team_id: "engineering"
+    data_classification: "internal"
+    access_rules:
+      public_within_org: true
+      allowed_teams: ["engineering", "devops", "qa"]
+      
+  code_repository:
+    name: "Main Code Repository"
+    type: "code_repository"
+    organization_id: "acme_corp"
+    team_id: "engineering"
+    data_classification: "confidential"
+    access_rules:
+      allowed_teams: ["engineering", "senior_engineering"]
+      required_roles: ["developer", "senior_developer"]
+      
+  support_kb:
+    name: "Customer Support Knowledge Base"
+    type: "knowledge_base"
+    organization_id: "acme_corp"
+    team_id: "support"
+    data_classification: "internal"
+    access_rules:
+      public_within_org: true
+      allowed_teams: ["support", "engineering", "product"]
+      
+  security_docs:
+    name: "Security Documentation"
+    type: "documentation"
+    organization_id: "acme_corp"
+    team_id: "security"
+    data_classification: "restricted"
+    access_rules:
+      allowed_teams: ["security", "senior_engineering"]
+      min_security_clearance: "confidential"
